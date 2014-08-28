@@ -37,6 +37,7 @@ INSTALLED_APPS = (
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'south',
+    'body_weight_workout',
 )
 
 MIDDLEWARE_CLASSES = (
