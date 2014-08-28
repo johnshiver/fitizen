@@ -1,11 +1,11 @@
 from django.conf.urls import patterns, include, url
 
 from django.contrib import admin
+from profiles.views import TestView
 admin.autodiscover()
 
 urlpatterns = patterns('',
-    # Examples:
-    # url(r'^$', 'fitizen.views.home', name='home'),
+    url(r'^$', TestView.as_view()),
     # url(r'^blog/', include('blog.urls')),
 
     url(r'^admin/', include(admin.site.urls)),

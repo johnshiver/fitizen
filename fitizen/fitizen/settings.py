@@ -54,6 +54,8 @@ INSTALLED_APPS = (
     'django.contrib.staticfiles',
     'south',
     'body_weight_workout',
+    'profiles',
+    'bootstrap3',
 )
 
 MIDDLEWARE_CLASSES = (
@@ -75,11 +77,14 @@ WSGI_APPLICATION = 'fitizen.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'NAME': 'fitizen',
+        'USER': 'johnshiver',
+        'PASSWORD': '',
+        'HOST': 'localhost',
+        'PORT': '5432',
     }
 }
-
 # Internationalization
 # https://docs.djangoproject.com/en/1.6/topics/i18n/
 
