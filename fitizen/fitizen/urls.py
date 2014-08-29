@@ -1,12 +1,12 @@
 from django.conf.urls import patterns, include, url
 
 from django.contrib import admin
-from profiles.views import TestView
+from profiles.views import CreateUser, DetailUser
 admin.autodiscover()
 
 urlpatterns = patterns('',
-    url(r'^$', TestView.as_view()),
-    # url(r'^blog/', include('blog.urls')),
-
+    url(r'^$', CreateUser.as_view()),
+    url(r'/user/', DetailUser.as_view(), name="detail_user"),
+    url(r'accounts/', include('authtools.urls')),
     url(r'^admin/', include(admin.site.urls)),
 )

@@ -55,7 +55,7 @@ INSTALLED_APPS = (
     'south',
     'body_weight_workout',
     'profiles',
-    'bootstrap3',
+    'authtools',
 )
 
 MIDDLEWARE_CLASSES = (
@@ -106,3 +106,5 @@ MEDIA_ROOT = BASE_DIR.child("media")
 
 STATIC_ROOT = BASE_DIR.child('static')
 STATIC_URL = '/static/'
+
+AUTH_USER_MODEL = 'authtools.User'
