@@ -1,22 +1,23 @@
 from django.shortcuts import render
-from django.views.generic import CreateView, DetailView
+from django.views.generic import CreateView, DetailView, View
 from django.contrib import messages
+from django.http import HttpResponse
 
 
 from .models import Fitizen
 from authtools.forms import UserCreationForm
 
 
-class FormMessageMixin(object):
+class TestHome(View):
+    template_name = 'base.html'
 
-    @property
-    def success_msg(self):
-        return NotImplemented
+    def get(self, request, *args, **kwargs):
+        return render(request, self.template_name)
 
 
-class CreateUser(FormMessageMixin, CreateView):
+class CreateUser(CreateView):
     form_class = UserCreationForm
-    template_name = "base.html"
+    template_name = "create.html"
 
     success_msg = 'Account created!'
 
