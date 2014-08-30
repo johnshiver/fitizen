@@ -1,7 +1,7 @@
 from __future__ import absolute_import
 
 from django.shortcuts import render
-from django.views.generic import CreateView, DetailView, View, FormView
+from django.views.generic import CreateView, RedirectView, View, FormView
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login, logout
 from django.core.urlresolvers import reverse_lazy
@@ -47,3 +47,18 @@ class Login(FormView):
             return super(Login, self).form_valid(form)
         else:
             return self.form_invalid(form)
+
+
+# a redirect view...redirects!
+class Logout(RedirectView):
+    # reverse lazy only works when class is instantiated
+    # makes classes easier, no methods to overwrite
+    url = reverse_lazy('home')
+
+    def get(self, request, *args, **kwargs):
+        logout(request)
+        return super(Logout, self).get(request, *args, **kwargs)
+
+
+
+
