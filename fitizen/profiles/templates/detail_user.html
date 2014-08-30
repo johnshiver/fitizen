@@ -1,8 +1,9 @@
-{% extends base.html %}
+{% extends "base.html" %}
 
 {% block title %}
 <h1>Hello! {{ object.get_full_name }}</h1>
 {% endblock %}
+
 
 {% if messages %}
  <ul>
