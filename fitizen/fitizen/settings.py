@@ -107,4 +107,4 @@ MEDIA_ROOT = BASE_DIR.child("media")
 STATIC_ROOT = BASE_DIR.child('static')
 STATIC_URL = '/static/'
 
-AUTH_USER_MODEL = 'authtools.User'
+AUTH_USER_MODEL = 'profiles.Fitizen'

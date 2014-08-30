@@ -1,9 +1,9 @@
-from django.shortcuts import render, response
-from django.core.urlresolvers import reverse
+from django.shortcuts import render
 from django.views.generic import CreateView, DetailView
 from django.contrib import messages
 
-from authtools.models import AbstractEmailUser
+
+from .models import Fitizen
 from authtools.forms import UserCreationForm
 
 
@@ -13,19 +13,14 @@ class FormMessageMixin(object):
     def success_msg(self):
         return NotImplemented
 
-    def form_valid(self, form):
-        messages.info(self.request, self.success_msg)
-        return response("detail_user")
-
 
 class CreateUser(FormMessageMixin, CreateView):
     form_class = UserCreationForm
-    model = AbstractEmailUser
     template_name = "base.html"
 
     success_msg = 'Account created!'
 
 
 class DetailUser(DetailView):
-    model = AbstractEmailUser
+    model = Fitizen
     template_name = "detail_user.html"

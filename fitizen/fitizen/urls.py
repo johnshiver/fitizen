@@ -6,7 +6,7 @@ admin.autodiscover()
 
 urlpatterns = patterns('',
     url(r'^$', CreateUser.as_view()),
-    url(r'/user/', DetailUser.as_view(), name="detail_user"),
+    url(r'/user/(?P<pk>\d+)/$', DetailUser.as_view(), name="detail_user"),
     url(r'accounts/', include('authtools.urls')),
     url(r'^admin/', include(admin.site.urls)),
 )
