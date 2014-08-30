@@ -8,8 +8,15 @@ from .models import Fitizen
 from authtools.forms import UserCreationForm
 
 
-class TestHome(View):
-    template_name = 'base.html'
+class Home(View):
+    template_name = 'home.html'
+
+    def get(self, request, *args, **kwargs):
+        return render(request, self.template_name)
+
+
+class Contact(View):
+    template_name = 'contact.html'
 
     def get(self, request, *args, **kwargs):
         return render(request, self.template_name)
