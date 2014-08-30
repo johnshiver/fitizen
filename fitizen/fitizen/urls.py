@@ -1,14 +1,16 @@
 from django.conf.urls import patterns, include, url
 
 from django.contrib import admin
-from profiles.views import CreateUser, DetailUser, Home, Contact
+from profiles.views import Register, Home, Contact, Login
+
+
 admin.autodiscover()
 
-urlpatterns = patterns('',
+urlpatterns = patterns(
+    '',
     url(r'^$', Home.as_view(), name='home'),
     url(r'^contact', Contact.as_view(), name='contact'),
-    url(r'^register', CreateUser.as_view(), name='register'),
-    url(r'/user/(?P<pk>\d+)/$', DetailUser.as_view(), name="detail_user"),
-    url(r'accounts/', include('authtools.urls')),
+    url(r'^accounts/register/$', Register.as_view(), name='register'),
+    url(r'^accounts/login/$', Login.as_view(), name='login'),
     url(r'^admin/', include(admin.site.urls)),
 )

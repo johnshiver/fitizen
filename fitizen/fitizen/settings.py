@@ -55,7 +55,7 @@ INSTALLED_APPS = (
     'south',
     'body_weight_workout',
     'profiles',
-    'authtools',
+    'crispy_forms',
 )
 
 MIDDLEWARE_CLASSES = (
@@ -107,4 +107,4 @@ MEDIA_ROOT = BASE_DIR.child("media")
 STATIC_ROOT = BASE_DIR.child('static')
 STATIC_URL = '/static/'
 
-AUTH_USER_MODEL = 'profiles.Fitizen'
+CRISPY_TEMPLATE_PACK = 'bootstrap3'
