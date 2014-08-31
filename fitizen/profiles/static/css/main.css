@@ -5,3 +5,7 @@ a#register{
 .glyphicon-home{
     font-size: 1.4em;
 }
+
+ul.messages{
+    list-style-type:none;
+}

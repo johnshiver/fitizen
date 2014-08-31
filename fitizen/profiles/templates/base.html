@@ -61,6 +61,15 @@
     <!-- Begin page content -->
     <div class="container">
       <div class="page-header">
+
+    {% if messages %}
+    <ul class="messages">
+        {% for message in messages %}
+        <li{% if message.tags %} class="alert alert-{{ message.tags }}"{% endif %}>{{ message }}</li>
+        {% endfor %}
+    </ul>
+    {% endif %}
+
         <h1>{% block title %}Title will go here! {% endblock %}</h1>
       </div>
       {% block content %} <p class="lead">Main content will go here </p> {% endblock %}
@@ -69,7 +78,7 @@
 
     <div class="footer">
       <div class="container">
-        <p class="text-muted">Made in 2014 by John Shiver</p>
+        <p class="text-muted">Made in 2014 by <a href="/contact">John Shiver</a></p>
       </div>
     </div>
 
