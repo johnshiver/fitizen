@@ -8,6 +8,8 @@ from django.core.urlresolvers import reverse_lazy
 
 from .forms import RegistrationForm, LoginForm
 
+from braces import views
+
 
 class Home(View):
     template_name = 'home.html'
@@ -23,14 +25,24 @@ class Contact(View):
         return render(request, self.template_name)
 
 
-class Register(CreateView):
+class Register(
+    views.AnonymousRequiredMixin,
+    views.FormValidMessageMixin,
+    CreateView
+):
     form_class = RegistrationForm
+    form_valid_message = 'Thanks for signing up, go ahead and login'
     model = User
     template_name = "accounts/signup.html"
 
 
-class Login(FormView):
+class Login(
+    views.AnonymousRequiredMixin,
+    views.FormValidMessageMixin,
+    FormView
+):
     form_class = LoginForm
+    form_valid_message = "Logged in!"
     success_url = reverse_lazy('home')
     template_name = 'accounts/login.html'
 
@@ -50,15 +62,16 @@ class Login(FormView):
 
 
 # a redirect view...redirects!
-class Logout(RedirectView):
+class Logout(
+    views.LoginRequiredMixin,
+    views.MessageMixin,
+    RedirectView
+):
     # reverse lazy only works when class is instantiated
     # makes classes easier, no methods to overwrite
     url = reverse_lazy('home')
 
     def get(self, request, *args, **kwargs):
         logout(request)
+        self.messages.success("You've been logged out. Come back soon!")
         return super(Logout, self).get(request, *args, **kwargs)
-
-
-
-
