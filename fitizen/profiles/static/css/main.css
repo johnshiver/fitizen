@@ -1,3 +1,14 @@
 a#register{
     margin-right: 15px;
 }
+
+.glyphicon-home{
+    font-size: 1.4em;
+}
+
+ul.messages{
+    list-style-type:none;
+    text-align: center;
+    width: 50%;
+    margin: 0 auto;
+}
