@@ -30,6 +30,7 @@ class Register(
     views.FormValidMessageMixin,
     CreateView
 ):
+    authenticated_redirect_url = reverse_lazy(u"home")
     form_class = RegistrationForm
     form_valid_message = 'Thanks for signing up, go ahead and login'
     model = User
@@ -41,6 +42,7 @@ class Login(
     views.FormValidMessageMixin,
     FormView
 ):
+    authenticated_redirect_url = reverse_lazy(u"home")
     form_class = LoginForm
     form_valid_message = "Logged in!"
     success_url = reverse_lazy('home')
@@ -70,6 +72,7 @@ class Logout(
     # reverse lazy only works when class is instantiated
     # makes classes easier, no methods to overwrite
     url = reverse_lazy('home')
+    login_url = reverse_lazy('login')
 
     def get(self, request, *args, **kwargs):
         logout(request)
