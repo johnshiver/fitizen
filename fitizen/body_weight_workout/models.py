@@ -3,9 +3,9 @@ from django.core.exceptions import ValidationError
 from django.contrib.auth.models import User
 
 
-def validate_max(value):
-    if value > 500:
-        raise ValidationError(u'There is no way you did %s reps' % value)
+# def validate_max(value):
+#     if value > 500:
+#         raise ValidationError(u'There is no way you did %s reps' % value)
 
 
 class BodyWeightWorkout(models.Model):
@@ -14,6 +14,9 @@ class BodyWeightWorkout(models.Model):
     """
     user = models.ForeignKey(User, unique_for_date='date_created')
     date_created = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return str(self.date_created)
 
 
 class WeightExercise(models.Model):
@@ -28,13 +31,29 @@ class WeightExercise(models.Model):
     ROW = "RW"
 
     EXERCISE_CHOICES = (
-        (FRESHMAN, 'Freshman'),
-        (SOPHOMORE, 'Sophomore'),
-        (JUNIOR, 'Junior'),
-        (SENIOR, 'Senior'),
+        (PULLUP, 'Pullup'),
+        (DIP, 'Dips'),
+        (SQUAT, 'Sqat'),
+        (LSIT, 'Senior'),
+        (PUSHUP, 'Pushup'),
+        (ROW, 'Row')
     )
+
+    SET_CHOICES = [(i, i) for i in range(1, 4)]
 
     workout = models.ForeignKey(BodyWeightWorkout)
     reps = models.PositiveSmallIntegerField()
-    exercise =
-    which_set =
+    exercise = models.CharField(max_length=2,
+                                choices=EXERCISE_CHOICES)
+    which_set = models.IntegerField(choices=SET_CHOICES)
+
+
+
+
+
+
+
+
+
+
+
