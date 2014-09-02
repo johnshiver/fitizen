@@ -46,14 +46,3 @@ class WeightExercise(models.Model):
     exercise = models.CharField(max_length=2,
                                 choices=EXERCISE_CHOICES)
     which_set = models.IntegerField(choices=SET_CHOICES)
-
-
-
-
-
-
-
-
-
-
-

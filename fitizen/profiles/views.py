@@ -78,3 +78,4 @@ class Logout(
         logout(request)
         self.messages.success("You've been logged out. Come back soon!")
         return super(Logout, self).get(request, *args, **kwargs)
+
