@@ -7,6 +7,7 @@ from django.contrib.auth import authenticate, login, logout
 from django.core.urlresolvers import reverse_lazy
 
 from .forms import RegistrationForm, LoginForm
+from body_weight_workout.models import BodyWeightWorkout
 
 from braces import views
 
@@ -15,7 +16,8 @@ class Home(View):
     template_name = 'home.html'
 
     def get(self, request, *args, **kwargs):
-        return render(request, self.template_name)
+        workouts = BodyWeightWorkout.objects.filter(user=request.user.id).datetimes('created', 'day', order='DESC')
+        return render(request, self.template_name, {'workouts': workouts})
 
 
 class Contact(View):

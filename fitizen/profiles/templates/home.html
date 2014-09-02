@@ -7,7 +7,14 @@
 {% block content %}
 
 {% if user.is_authenticated %}
-<p class="lead">Will show recent workouts / invite to make a new one</p>
+<p class="lead"><h3>Your recent workouts</h3></p>
+<p class="lead">
+    {% for workout in workouts %}
+    {{ workout }}
+    {% endfor %}
+</p>
+
+<br />
 
 <a href="{% url 'create_workout' %}" class="btn btn-default btn-lg" role="button">
     <span class="glyphicon glyphicon-plus"></span>
