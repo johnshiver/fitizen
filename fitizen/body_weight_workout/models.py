@@ -50,10 +50,9 @@ class WeightExercise(models.Model):
         (ROW, 'Row')
     )
 
-    SET_CHOICES = [(i, i) for i in range(1, 4)]
-
     workout = models.ForeignKey(BodyWeightWorkout)
-    reps = models.PositiveSmallIntegerField()
     exercise = models.CharField(max_length=2,
                                 choices=EXERCISE_CHOICES)
-    which_set = models.IntegerField(choices=SET_CHOICES)
+    set1 = models.PositiveIntegerField(default=0)
+    set2 = models.PositiveIntegerField(default=0)
+    set3 = models.PositiveIntegerField(default=0)

@@ -1,11 +1,8 @@
-from datetime import datetime
-
 from django.utils import timezone
 from django.shortcuts import redirect
 from django.views.generic import View
-from django.core.urlresolvers import reverse_lazy
 
-from .models import BodyWeightWorkout
+from .models import BodyWeightWorkout, WeightExercise
 
 from braces import views
 
@@ -17,20 +14,33 @@ class CreateWorkout(
     View
 ):
 
-    url = reverse_lazy('home')
-    login_url = reverse_lazy('login')
+    def set_exercises(self, workout):
+        pullup = WeightExercise(exercise='PU', workout=workout)
+        dip = WeightExercise(exercise='D', workout=workout)
+        squat = WeightExercise(exercise='SQ', workout=workout)
+        lsit = WeightExercise(exercise='LS', workout=workout)
+        pushup = WeightExercise(exercise='PU', workout=workout)
+        row = WeightExercise(exercise='RW', workout=workout)
+        pullup.save()
+        dip.save()
+        squat.save()
+        lsit.save()
+        pushup.save()
+        row.save()
 
     def get(self, request, *args, **kwargs):
         now = timezone.now()
-        recent_workout = list(BodyWeightWorkout.objects.filter(user=request.user.id).datetimes('created', 'day', order='DESC')[:1])
-        difference = (now - recent_workout[0])
-        # check to see if they already worked out today
-        if difference.days == 0:
-            self.messages.success("You already worked out today!")
-            return redirect('home')
+        recent_workout = BodyWeightWorkout.objects.filter(user=request.user.id).datetimes('created', 'day', order='DESC')[:1]
+        if len(recent_workout) > 0:
+            recent_workout = list(recent_workout)
+            difference = (now - recent_workout[0])
+            if difference.days == 0:
+                self.messages.success("You already worked out today, take a break!")
+                return redirect('home')
         else:
             user = request.user
             workout = BodyWeightWorkout(user=user)
             workout.save()
+            self.set_exercises(workout)
             self.messages.success("New workout created!")
             return redirect('home')
