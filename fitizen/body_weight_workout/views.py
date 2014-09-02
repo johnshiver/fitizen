@@ -1,4 +1,4 @@
-from datetime import datetime
+# from datetime import datetime
 
 from django.views.generic import RedirectView
 from django.core.urlresolvers import reverse_lazy
@@ -21,8 +21,8 @@ class CreateWorkout(
 
     def get(self, request, *args, **kwargs):
         user = request.user
-        now = datetime.now()
-        workout = BodyWeightWorkout(user=user, date_created=now)
+        # now = datetime.now()
+        workout = BodyWeightWorkout(user=user)
         workout.save()
         self.messages.success("New workout created!")
 

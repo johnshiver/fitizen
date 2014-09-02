@@ -1,7 +1,7 @@
 from django.db import models
-from django.core.exceptions import ValidationError
+# from django.core.exceptions import ValidationError
 from django.contrib.auth.models import User
-
+import datetime
 
 # def validate_max(value):
 #     if value > 500:
@@ -12,11 +12,22 @@ class BodyWeightWorkout(models.Model):
     """
     Represents a single workout, assumes one workout per day
     """
-    user = models.ForeignKey(User, unique_for_date='date_created')
-    date_created = models.DateTimeField(auto_now_add=True)
+    user = models.ForeignKey(User)
+    created = models.DateTimeField(editable=False)
+    modified = models.DateTimeField()
+
+    def save(self, *args, **kwargs):
+        ''' On save, update timestamps '''
+        if not self.id:
+            self.created = datetime.datetime.today()
+        self.modified = datetime.datetime.today()
+        return super(BodyWeightWorkout, self).save(*args, **kwargs)
 
     def __str__(self):
-        return str(self.date_created)
+        if self.modified:
+            return str(self.modified)
+        else:
+            return str(self.created)
 
 
 class WeightExercise(models.Model):
