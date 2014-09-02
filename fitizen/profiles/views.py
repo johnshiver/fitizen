@@ -33,6 +33,7 @@ class Register(
     authenticated_redirect_url = reverse_lazy(u"home")
     form_class = RegistrationForm
     form_valid_message = 'Thanks for signing up, go ahead and login'
+    success_url = reverse_lazy('home')
     model = User
     template_name = "accounts/signup.html"
 
