@@ -102,9 +102,9 @@ class Base(Configuration):
 
     MEDIA_ROOT = BASE_DIR.child("media")
 
-    STATICFILES_DIRS = (
-        BASE_DIR.child("static"),
-    )
+    # STATICFILES_DIRS = (
+    #     BASE_DIR.child("static"),
+    # )
 
     STATIC_ROOT = '../static/'
     STATIC_URL = '/static/'
