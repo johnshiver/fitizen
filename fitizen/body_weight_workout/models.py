@@ -34,7 +34,7 @@ class WeightExercise(models.Model):
     """
     Represents a single Exercise
     """
-    PULLUP = 'PU'
+    PULLUP = 'PL'
     DIP = 'D'
     SQUAT = 'SQ'
     LSIT = 'LS'

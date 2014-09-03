@@ -16,7 +16,8 @@ class Home(View):
     template_name = 'home.html'
 
     def get(self, request, *args, **kwargs):
-        workouts = BodyWeightWorkout.objects.filter(user=request.user.id).datetimes('created', 'day', order='DESC')
+        # workouts = BodyWeightWorkout.objects.filter(user=request.user.id).datetimes('created', 'day', order='DESC')
+        workouts = BodyWeightWorkout.objects.filter(user=request.user.id)[:6]
         return render(request, self.template_name, {'workouts': workouts})
 
 

@@ -10,7 +10,7 @@
 <p class="lead"><h3>Your recent workouts</h3></p>
 <p class="lead">
     {% for workout in workouts %}
-    {{ workout }}
+    <a href="workout/{{ workout.id }}">{{ workout }}</a>
     {% endfor %}
 </p>
 

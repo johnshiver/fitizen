@@ -1,6 +1,7 @@
 from django.utils import timezone
 from django.shortcuts import redirect
-from django.views.generic import View
+from django.views.generic import View, TemplateView
+from django.shortcuts import render
 
 from .models import BodyWeightWorkout, WeightExercise
 
@@ -15,7 +16,7 @@ class CreateWorkout(
 ):
 
     def set_exercises(self, workout):
-        pullup = WeightExercise(exercise='PU', workout=workout)
+        pullup = WeightExercise(exercise='PL', workout=workout)
         dip = WeightExercise(exercise='D', workout=workout)
         squat = WeightExercise(exercise='SQ', workout=workout)
         lsit = WeightExercise(exercise='LS', workout=workout)
@@ -44,3 +45,33 @@ class CreateWorkout(
             self.set_exercises(workout)
             self.messages.success("New workout created!")
             return redirect('home')
+
+
+class WorkoutView(
+    views.LoginRequiredMixin,
+    views.MessageMixin,
+    TemplateView
+):
+
+    template_name = 'workout.html'
+
+    def get_context_data(self, **kwargs):
+        context = super(WorkoutView, self).get_context_data(**kwargs)
+        workout_id = int(self.kwargs['workout_id'])
+        context['pullups'] = list(WeightExercise.objects.filter(workout_id=workout_id, exercise='PL'))[0]
+        context['dips'] = list(WeightExercise.objects.filter(workout_id=workout_id, exercise='D'))[0]
+        context['squats'] = list(WeightExercise.objects.filter(workout_id=workout_id, exercise='SQ'))[0]
+        context['lsits'] = list(WeightExercise.objects.filter(workout_id=workout_id, exercise='LS'))[0]
+        context['pushups'] = list(WeightExercise.objects.filter(workout_id=workout_id, exercise='PU'))[0]
+        context['rows'] = list(WeightExercise.objects.filter(workout_id=workout_id, exercise='RW'))[0]
+        return context
+
+
+
+
+
+
+
+
+
+
