@@ -58,6 +58,14 @@ class WorkoutView(
 
     template_name = 'workout.html'
 
+    def get(self, request, *args, **kwargs):
+        username = self.kwargs['username']
+        if request.user.username == username:
+            context = self.get_context_data(**kwargs)
+            return self.render_to_response(context)
+        else:
+            return redirect('home')
+
     def get_context_data(self, **kwargs):
         context = super(WorkoutView, self).get_context_data(**kwargs)
         workout_id = int(self.kwargs['workout_id'])
@@ -78,19 +86,23 @@ class UpdateWorkout(
 ):
 
     def get(self, request, *args, **kwargs):
-        templates = {1: 'update_group1.html', 2: 'update_group2.html',
-                     3: 'update_group3.html'}
-        workout_id = self.kwargs['workout_id']
-        group = self.kwargs['group']
-        template = templates[int(group)]
-        form1 = WeightExerciseForm(prefix='ex1')
-        form2 = WeightExerciseForm(prefix='ex2')
-        return render(request, template, {
-                      'form1': form1,
-                      'form2': form2,
-                      'workout_id': workout_id,
-                      'group': group,
-                      })
+        username = self.kwargs['username']
+        if request.user.username == username:
+            templates = {1: 'update_group1.html', 2: 'update_group2.html',
+                         3: 'update_group3.html'}
+            workout_id = self.kwargs['workout_id']
+            group = self.kwargs['group']
+            template = templates[int(group)]
+            form1 = WeightExerciseForm(prefix='ex1')
+            form2 = WeightExerciseForm(prefix='ex2')
+            return render(request, template, {
+                          'form1': form1,
+                          'form2': form2,
+                          'workout_id': workout_id,
+                          'group': group,
+                          })
+        else:
+            return redirect('home')
 
     def post(self, request, *args, **kwargs):
         form1 = WeightExerciseForm(request.POST, prefix='ex1')
@@ -105,7 +117,7 @@ class UpdateWorkout(
             f2 = WeightExerciseForm(request.POST, instance=w2, prefix='ex2')
             f1.save()
             f2.save()
-            return HttpResponseRedirect('/workout/' + str(workout_id))
+            return HttpResponseRedirect('/' + request.user.username + '/workout/' + str(workout_id))
         else:
             form1 = WeightExerciseForm()
             form2 = WeightExerciseForm()

@@ -6,7 +6,7 @@
 
 <p class="lead">These exercises are meant to be done in conjunction with one another</p>
 
-<form action="/update_workout/{{ workout_id }}/{{ group }}/" method="post">
+<form action="/{{ user.username }}/update_workout/{{ workout_id }}/{{ group }}/" method="post">
 {% csrf_token %}
 <h2>Squats
 <button type="button" class="btn btn-default btn-xs" onclick="$('#video1').toggle();">

@@ -10,7 +10,7 @@
 <p class="lead"><h3>Your recent workouts</h3></p>
 <p class="lead">
     {% for workout in workouts %}
-    <a href="workout/{{ workout.id }}">{{ workout.created|date:"SHORT_DATE_FORMAT" }}</a>
+    <a href="{{ user.username }}/workout/{{ workout.id }}">{{ workout.created|date:"SHORT_DATE_FORMAT" }}</a>
     {% endfor %}
 </p>
 
