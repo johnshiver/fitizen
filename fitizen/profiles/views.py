@@ -7,6 +7,7 @@ from django.contrib.auth import authenticate, login, logout
 from django.core.urlresolvers import reverse_lazy
 
 from .forms import RegistrationForm, LoginForm
+from body_weight_workout.models import BodyWeightWorkout
 
 from braces import views
 
@@ -15,7 +16,9 @@ class Home(View):
     template_name = 'home.html'
 
     def get(self, request, *args, **kwargs):
-        return render(request, self.template_name)
+        # workouts = BodyWeightWorkout.objects.filter(user=request.user.id).datetimes('created', 'day', order='DESC')
+        workouts = BodyWeightWorkout.objects.filter(user=request.user.id)[:6]
+        return render(request, self.template_name, {'workouts': workouts})
 
 
 class Contact(View):
@@ -33,6 +36,7 @@ class Register(
     authenticated_redirect_url = reverse_lazy(u"home")
     form_class = RegistrationForm
     form_valid_message = 'Thanks for signing up, go ahead and login'
+    success_url = reverse_lazy('home')
     model = User
     template_name = "accounts/signup.html"
 
@@ -78,3 +82,4 @@ class Logout(
         logout(request)
         self.messages.success("You've been logged out. Come back soon!")
         return super(Logout, self).get(request, *args, **kwargs)
+

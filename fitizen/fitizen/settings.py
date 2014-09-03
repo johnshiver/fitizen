@@ -104,7 +104,10 @@ USE_TZ = True
 
 MEDIA_ROOT = BASE_DIR.child("media")
 
-STATIC_ROOT = BASE_DIR.child('static')
+STATICFILES_DIRS = (
+    BASE_DIR.child("static"),
+)
+
 STATIC_URL = '/static/'
 
 CRISPY_TEMPLATE_PACK = 'bootstrap3'

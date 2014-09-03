@@ -7,12 +7,22 @@
 {% block content %}
 
 {% if user.is_authenticated %}
-<p class="lead">Will show recent workouts / invite to make a new one</p>
+<p class="lead"><h3>Your recent workouts</h3></p>
+<p class="lead">
+    {% for workout in workouts %}
+    <a href="{{ user.username }}/workout/{{ workout.id }}">{{ workout.created|date:"SHORT_DATE_FORMAT" }}</a>
+    {% endfor %}
+</p>
+
+<br />
+
+<a href="{% url 'create_workout' %}" class="btn btn-default btn-lg" role="button">
+    <span class="glyphicon glyphicon-plus"></span>
+    Add new work out</a>
 
 {% else %}
 
 <p class="lead"> Fitizen is a site that compliments /r/bodyweightfitness's beginner workout, <a href="http://www.reddit.com/r/bodyweightfitness/wiki/kb/recommended_routine">see here.</a></p>
-<p class="lead">Click below to register or log in!</p>
 
 
 {% endif %}

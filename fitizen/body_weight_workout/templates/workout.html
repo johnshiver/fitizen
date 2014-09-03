@@ -1,0 +1,107 @@
+{% extends "base.html" %}
+
+{% block title %}Body Weight Workout{% endblock %}
+
+{% block content %}
+
+<div class="panel panel-default">
+  <div class="panel-heading">Grouping 1
+    <a href="/{{ user.username }}/update_workout/{{ workout_id }}/1" class="btn btn-default btn-xs" role="button">
+    <span class="glyphicon glyphicon-play"></span></a>
+  </div>
+  <table class="table">
+
+    <thead>
+        <tr>
+            <th>Exercise</th>
+            <th>Set 1</th>
+            <th>Set 2</th>
+            <th>Set 3</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>Pullups</td>
+            <td>{{ pullups.set1 }}</td>
+            <td>{{ pullups.set2 }}</td>
+            <td>{{ pullups.set3 }}</td>
+        </tr>
+        <tr>
+            <td>Dips</td>
+            <td>{{ dips.set1 }}</td>
+            <td>{{ dips.set2 }}</td>
+            <td>{{ dips.set3 }}</td>
+        </tr>
+    </tbody>
+
+    </table>
+ </div>
+
+ <div class="panel panel-default">
+  <div class="panel-heading">Grouping 2
+        <a href="/{{ user.username }}/update_workout/{{ workout_id }}/2" class="btn btn-default btn-xs" role="button">
+        <span class="glyphicon glyphicon-play"></span></a>
+  </div>
+  <table class="table">
+
+    <thead>
+        <tr>
+            <th>Exercise</th>
+            <th>Set 1</th>
+            <th>Set 2</th>
+            <th>Set 3</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>Squats</td>
+            <td>{{ squats.set1 }}</td>
+            <td>{{ squats.set2 }}</td>
+            <td>{{ squats.set3 }}</td>
+        </tr>
+        <tr>
+            <td>Lsits</td>
+            <td>{{ lsits.set1 }}</td>
+            <td>{{ lsits.set2 }}</td>
+            <td>{{ lsits.set3 }}</td>
+        </tr>
+    </tbody>
+
+    </table>
+ </div>
+
+ <div class="panel panel-default">
+  <div class="panel-heading">Grouping 3
+        <a href="/{{ user.username }}/update_workout/{{ workout_id }}/3" class="btn btn-default btn-xs" role="button">
+        <span class="glyphicon glyphicon-play"></span></a>
+  </div>
+  <table class="table">
+
+    <thead>
+        <tr>
+            <th>Exercise</th>
+            <th>Set 1</th>
+            <th>Set 2</th>
+            <th>Set 3</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>Pushups
+            </td>
+            <td>{{ pushups.set1 }}</td>
+            <td>{{ pushups.set2 }}</td>
+            <td>{{ pushups.set3 }}</td>
+        </tr>
+        <tr>
+            <td>Rows</td>
+            <td>{{ rows.set1 }}</td>
+            <td>{{ rows.set2 }}</td>
+            <td>{{ rows.set3 }}</td>
+        </tr>
+    </tbody>
+
+    </table>
+ </div>
+{% endblock %}
+
