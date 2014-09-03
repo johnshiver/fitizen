@@ -132,7 +132,7 @@ class Dev(Base):
 class Prod(Base):
     # SECURITY WARNING: don't run with debug turned on in production!
     DEBUG = True
-    TEMPLATE_DEBUG = False
+    TEMPLATE_DEBUG = True
     DATABASES = {
         'default': {
             'ENGINE': 'django.db.backends.postgresql_psycopg2',
