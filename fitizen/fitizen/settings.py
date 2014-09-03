@@ -106,6 +106,7 @@ class Base(Configuration):
         BASE_DIR.child("static"),
     )
 
+    STATIC_ROOT = '../static/'
     STATIC_URL = '/static/'
 
     CRISPY_TEMPLATE_PACK = 'bootstrap3'
