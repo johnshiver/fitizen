@@ -15,6 +15,6 @@ urlpatterns = patterns(
     url(r'^accounts/logout/$', Logout.as_view(), name='logout'),
     url(r'^create_workout/$', CreateWorkout.as_view(), name='create_workout'),
     url(r'^workout/(?P<workout_id>\d+)/$', WorkoutView.as_view(), name='view_workout'),
-    url(r'^update_workout/(?P<workout_id>\d+)/$', UpdateWorkout.as_view(), name='update_workout'),
+    url(r'^update_workout/(?P<workout_id>\d+)/(?P<group>\d+)/$', UpdateWorkout.as_view(), name='update_workout'),
     url(r'^admin/', include(admin.site.urls)),
 )

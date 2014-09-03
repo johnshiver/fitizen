@@ -77,17 +77,30 @@ class UpdateWorkout(
 ):
 
     def get(self, request, *args, **kwargs):
-        form = WeightExerciseForm()
+        workout_id = self.kwargs['workout_id']
+        group = self.kwargs['group']
+        form1 = WeightExerciseForm(prefix='ex1')
+        form2 = WeightExerciseForm(prefix='ex2')
         return render(request, 'update_workout.html', {
-                      'form': form,
+                      'form1': form1,
+                      'form2': form2,
+                      'workout_id': workout_id,
+                      'group': group,
                       })
 
     def post(self, request, *args, **kwargs):
-        form = WeightExerciseForm(request.POST)
-        if form.is_valid():
-            w = WeightExercise.objects.get(pk=1)
-            f = WeightExerciseForm(request.POST, instance=w)
-            f.save()
+        form1 = WeightExerciseForm(request.POST, prefix='ex1')
+        form2 = WeightExerciseForm(request.POST, prefix='ex2')
+        groups = {1: ('PL', 'D'), 2: ('SQ', 'LS'), 3: ('PU', 'RW')}
+        if form1.is_valid() and form2.is_valid():
+            workout_id = int(self.kwargs['workout_id'])
+            group_number = int(self.kwargs['group'])
+            w1 = WeightExercise.objects.get(workout=workout_id, exercise=groups[group_number][0])
+            w2 = WeightExercise.objects.get(workout=workout_id, exercise=groups[group_number][1])
+            f1 = WeightExerciseForm(request.POST, instance=w1, prefix='ex1')
+            f2 = WeightExerciseForm(request.POST, instance=w2, prefix='ex2')
+            f1.save()
+            f2.save()
             return HttpResponseRedirect('/')
         else:
             form = WeightExerciseForm()

@@ -4,9 +4,15 @@
 {% block title %} Update Workout {% endblock %}
 
 {% block content %}
-<form action="/update_workout/5/" method="post">
+
+<p class="lead">Exercise 2</p>
+
+<form action="/update_workout/{{ workout_id }}/{{ group }}/" method="post">
 {% csrf_token %}
-{{ form.as_p }}
+{{ form1.as_p}}
+<br />
+{{ form2.as_p }}
 <input type="submit" value="Submit" />
 </form>
+
 {% endblock %}
