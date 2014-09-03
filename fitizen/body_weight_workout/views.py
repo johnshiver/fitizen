@@ -2,8 +2,11 @@ from django.utils import timezone
 from django.shortcuts import redirect
 from django.views.generic import View, TemplateView
 from django.shortcuts import render
+from django.core.urlresolvers import reverse_lazy
+from django.http import HttpResponseRedirect
 
 from .models import BodyWeightWorkout, WeightExercise
+from .forms import WeightExerciseForm
 
 from braces import views
 
@@ -67,11 +70,24 @@ class WorkoutView(
         return context
 
 
+class UpdateWorkout(
+    views.LoginRequiredMixin,
+    views.MessageMixin,
+    View
+):
 
+    def get(self, request, *args, **kwargs):
+        form = WeightExerciseForm()
+        return render(request, 'update_workout.html', {
+                      'form': form,
+                      })
 
-
-
-
-
-
-
+    def post(self, request, *args, **kwargs):
+        form = WeightExerciseForm(request.POST)
+        if form.is_valid():
+            w = WeightExercise.objects.get(pk=1)
+            f = WeightExerciseForm(request.POST, instance=w)
+            f.save()
+            return HttpResponseRedirect('/')
+        else:
+            form = WeightExerciseForm()
