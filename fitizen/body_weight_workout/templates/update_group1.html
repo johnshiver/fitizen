@@ -1,19 +1,38 @@
 {% extends 'base.html' %}
 
-{% block title %} Update Workout {% endblock %}
+{% block title %} Group 1 Exerises {% endblock %}
 
 {% block content %}
 
-<p class="lead">Exercise 2</p>
+<p class="lead">These exercises are meant to be done in conjunction with one another</p>
 
 <form action="/update_workout/{{ workout_id }}/{{ group }}/" method="post">
 {% csrf_token %}
-<h2>Pullups</h2>
+<h2>Pullups
+    <button type="button" class="btn btn-default btn-xs" onclick="$('#video1').toggle();">
+        <span class="glyphicon glyphicon-film"></span>
+    </button>
+    <div id="video1" style="display:none;">
+        <div class="embed-responsive embed-responsive-16by9">
+            <iframe class="col-sm-6" width="420" height="315" src="//www.youtube.com/embed/RsnbDcsZbpk" frameborder="0" allowfullscreen></iframe>
+        </div>
+    </div>
+</h2>
 {{ form1.as_p }}
 <br />
-<h2>Dips</h2>
+<h2>Dips
+    <button type="button" class="btn btn-default btn-xs" onclick="$('#video2').toggle();">
+        <span class="glyphicon glyphicon-film"></span>
+    </button>
+    <div id="video2" style="display:none;">
+        <div class="embed-responsive embed-responsive-16by9">
+            <iframe class="col-sm-6" width="420" height="315" src="//www.youtube.com/embed/ddEeZY_ii2c" frameborder="0" allowfullscreen></iframe>
+        </div>
+    </div>
+</h2>
 {{ form2.as_p }}
 <input type="submit" value="Submit" />
 </form>
 
 {% endblock %}
+
