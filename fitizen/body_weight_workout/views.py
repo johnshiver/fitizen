@@ -61,6 +61,7 @@ class WorkoutView(
     def get_context_data(self, **kwargs):
         context = super(WorkoutView, self).get_context_data(**kwargs)
         workout_id = int(self.kwargs['workout_id'])
+        context['workout_id'] = str(workout_id)
         context['pullups'] = list(WeightExercise.objects.filter(workout_id=workout_id, exercise='PL'))[0]
         context['dips'] = list(WeightExercise.objects.filter(workout_id=workout_id, exercise='D'))[0]
         context['squats'] = list(WeightExercise.objects.filter(workout_id=workout_id, exercise='SQ'))[0]
@@ -77,11 +78,14 @@ class UpdateWorkout(
 ):
 
     def get(self, request, *args, **kwargs):
+        templates = {1: 'update_group1.html', 2: 'update_group2.html',
+                     3: 'update_group3.html'}
         workout_id = self.kwargs['workout_id']
         group = self.kwargs['group']
+        template = templates[int(group)]
         form1 = WeightExerciseForm(prefix='ex1')
         form2 = WeightExerciseForm(prefix='ex2')
-        return render(request, 'update_workout.html', {
+        return render(request, template, {
                       'form1': form1,
                       'form2': form2,
                       'workout_id': workout_id,
@@ -101,6 +105,7 @@ class UpdateWorkout(
             f2 = WeightExerciseForm(request.POST, instance=w2, prefix='ex2')
             f1.save()
             f2.save()
-            return HttpResponseRedirect('/')
+            return HttpResponseRedirect('/workout/' + str(workout_id))
         else:
-            form = WeightExerciseForm()
+            form1 = WeightExerciseForm()
+            form2 = WeightExerciseForm()

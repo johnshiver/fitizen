@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+
+{% block title %} Update Workout {% endblock %}
+
+{% block content %}
+
+<p class="lead">Exercise 2</p>
+
+<form action="/update_workout/{{ workout_id }}/{{ group }}/" method="post">
+{% csrf_token %}
+<h2>Squats</h2>
+{{ form1.as_p }}
+<br />
+<h2>Lsits</h2>
+{{ form2.as_p }}
+<input type="submit" value="Submit" />
+</form>
+
+{% endblock %}

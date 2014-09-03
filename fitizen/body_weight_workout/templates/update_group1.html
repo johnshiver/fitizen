@@ -1,5 +1,4 @@
 {% extends 'base.html' %}
-{% load crispy_forms_tags %}
 
 {% block title %} Update Workout {% endblock %}
 
@@ -9,8 +8,10 @@
 
 <form action="/update_workout/{{ workout_id }}/{{ group }}/" method="post">
 {% csrf_token %}
-{{ form1.as_p}}
+<h2>Pullups</h2>
+{{ form1.as_p }}
 <br />
+<h2>Dips</h2>
 {{ form2.as_p }}
 <input type="submit" value="Submit" />
 </form>
