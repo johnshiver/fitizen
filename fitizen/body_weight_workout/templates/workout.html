@@ -9,7 +9,7 @@
     <a href="/{{ user.username }}/update_workout/{{ workout_id }}/1" class="btn btn-default btn-xs" role="button">
     <span class="glyphicon glyphicon-play"></span></a>
   </div>
-  <table class="table">
+  <table class="table table-hover table-condensed">
 
     <thead>
         <tr>
@@ -21,13 +21,13 @@
     </thead>
     <tbody>
         <tr>
-            <td>Pullups</td>
+            <td>Pullups Level: {{ pullups.level }}</td>
             <td>{{ pullups.set1 }}</td>
             <td>{{ pullups.set2 }}</td>
             <td>{{ pullups.set3 }}</td>
         </tr>
         <tr>
-            <td>Dips</td>
+            <td>Dips Level: {{ dips.level }}</td>
             <td>{{ dips.set1 }}</td>
             <td>{{ dips.set2 }}</td>
             <td>{{ dips.set3 }}</td>
@@ -42,7 +42,7 @@
         <a href="/{{ user.username }}/update_workout/{{ workout_id }}/2" class="btn btn-default btn-xs" role="button">
         <span class="glyphicon glyphicon-play"></span></a>
   </div>
-  <table class="table">
+ <table class="table table-hover table-condensed">
 
     <thead>
         <tr>
@@ -54,13 +54,13 @@
     </thead>
     <tbody>
         <tr>
-            <td>Squats</td>
+            <td>Squats Level: {{ squats.level }}</td>
             <td>{{ squats.set1 }}</td>
             <td>{{ squats.set2 }}</td>
             <td>{{ squats.set3 }}</td>
         </tr>
         <tr>
-            <td>Lsits</td>
+            <td>Lsits Level: {{ lsits.level }}</td>
             <td>{{ lsits.set1 }}</td>
             <td>{{ lsits.set2 }}</td>
             <td>{{ lsits.set3 }}</td>
@@ -75,7 +75,7 @@
         <a href="/{{ user.username }}/update_workout/{{ workout_id }}/3" class="btn btn-default btn-xs" role="button">
         <span class="glyphicon glyphicon-play"></span></a>
   </div>
-  <table class="table">
+  <table class="table table-hover table-condensed">
 
     <thead>
         <tr>
@@ -87,14 +87,14 @@
     </thead>
     <tbody>
         <tr>
-            <td>Pushups
+            <td>Pushups Level: {{ pushups.level }}
             </td>
             <td>{{ pushups.set1 }}</td>
             <td>{{ pushups.set2 }}</td>
             <td>{{ pushups.set3 }}</td>
         </tr>
         <tr>
-            <td>Rows</td>
+            <td>Rows Level: {{ rows.level }}</td>
             <td>{{ rows.set1 }}</td>
             <td>{{ rows.set2 }}</td>
             <td>{{ rows.set3 }}</td>

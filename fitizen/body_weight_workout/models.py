@@ -53,6 +53,7 @@ class WeightExercise(models.Model):
     workout = models.ForeignKey(BodyWeightWorkout)
     exercise = models.CharField(max_length=2,
                                 choices=EXERCISE_CHOICES)
+    level = models.CharField(max_length=1, default='1')
     set1 = models.PositiveIntegerField(default=0)
     set2 = models.PositiveIntegerField(default=0)
     set3 = models.PositiveIntegerField(default=0)
