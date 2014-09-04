@@ -156,6 +156,5 @@ class UpdateWorkout(
         else:
             workout_id = self.kwargs['workout_id']
             group = self.kwargs['group']
-            print request.POST
             self.messages.success("Invalid!")
             return HttpResponseRedirect('/' + request.user.username + '/update_workout/' + str(workout_id) + '/' + str(group))
