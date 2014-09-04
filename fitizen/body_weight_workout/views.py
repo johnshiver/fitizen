@@ -89,29 +89,29 @@ class UpdateWorkout(
 
         EXERCISE_CHOICES = {
                 1: [
-                    (('1', 'Level 1: Wall Pushup'),
-                     ('2', 'Level 2: Incline Pushup'),
-                     ('3', 'Level 3: Pushup'),
-                     ('4', 'Level 4: Diamond Pushup')),
-                    (('1', 'Level 1: Vertical Row'),
-                     ('2', 'Level 2: Incline Row'),
-                     ('3', 'Level 3: Row'))],
+                    (('1', '1: Pullup Negative'),
+                     ('2', '2: Pullup'),
+                     ('3', '3: L-sit Pullup'),
+                     ('4', '4: Pullover')),
+                    (('1', '1: Parallel Bar Dips'),
+                     ('2', '2: Ring Dips'),
+                     ('3', '3: Ring L-sit Dips'))],
                 2: [
-                    (('1', 'Level 1: Wall Pushup'),
-                     ('2', 'Level 2: Incline Pushup'),
-                     ('3', 'Level 3: Pushup'),
-                     ('4', 'Level 4: Diamond Pushup')),
-                    (('1', 'Level 1: Vertical Row'),
-                     ('2', 'Level 2: Incline Row'),
-                     ('3', 'Level 3: Row'))],
+                    (('1', '1: Assisted Bodyweight Squat'),
+                     ('2', '2: Bodyweight Squat'),
+                     ('3', '3: Barbell Squat'),
+                     ('4', '4: Deadlift')),
+                    (('1', '1: Foot Supported L-sit'),
+                     ('2', '2: One-Leg Foot Supported L-sit'),
+                     ('3', '3: Tuck L-sit'))],
                 3: [
-                    (('1', 'Level 1: Wall Pushup'),
-                     ('2', 'Level 2: Incline Pushup'),
-                     ('3', 'Level 3: Pushup'),
-                     ('4', 'Level 4: Diamond Pushup')),
-                    (('1', 'Level 1: Vertical Row'),
-                     ('2', 'Level 2: Incline Row'),
-                     ('3', 'Level 3: Row'))]
+                    (('1', '1: Wall Pushup'),
+                     ('2', '2: Incline Pushup'),
+                     ('3', '3: Pushup'),
+                     ('4', '4: Diamond Pushup')),
+                    (('1', '1: Vertical Row'),
+                     ('2', '2: Incline Row'),
+                     ('3', '3: Row'))]
         }
         return EXERCISE_CHOICES[group_number]
 
