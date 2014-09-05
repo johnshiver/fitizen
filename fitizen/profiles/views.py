@@ -16,21 +16,36 @@ from body_weight_workout.models import BodyWeightWorkout, WeightExercise
 from braces import views
 
 
+def fix_exercise(abbreviation):
+
+    exercises = {
+        'PL': 'Pullups',
+        'D': 'Dips',
+        'SQ': 'Squats',
+        'LS': 'L-sits',
+        'PU': "Pushups",
+        'RW': "Rows"
+    }
+    return exercises[abbreviation]
+
+
 def get_data(request, exercise='PL'):
     exercise = exercise
     xdata = []
-    ydata = []
-    ydata2 = []
-    ydata3 = []
+    ydata = [0 for x in range(5)]
+    ydata2 = [0 for x in range(5)]
+    ydata3 = [0 for x in range(5)]
     workouts = list(BodyWeightWorkout.objects.filter(user=request.user.id)[:5])
-    xdata = range(len(workouts))
-    #get pullups for each workout
+    # change this to dates at some point
+    xdata = range(1, 6)
+    # get reps for each workout
+    i = 0
     for workout in workouts:
         pullups = list(WeightExercise.objects.filter(workout=workout.id, exercise=exercise))
-        print pullups[0].set1
-        ydata.append(pullups[0].set1)
-        ydata2.append(pullups[0].set2)
-        ydata3.append(pullups[0].set3)
+        ydata[i] = pullups[0].set1
+        ydata2[i] = pullups[0].set2
+        ydata3[i] = pullups[0].set3
+        i += 1
     return xdata, ydata, ydata2, ydata3
 
 
@@ -52,6 +67,8 @@ def return_chart_data(request, exercise='PL'):
 
     workouts = BodyWeightWorkout.objects.filter(user=request.user.id)[:6]
 
+    exercise = fix_exercise(exercise)
+
     data = {
         'charttype': charttype,
         'chartdata': chartdata,
@@ -63,6 +80,7 @@ def return_chart_data(request, exercise='PL'):
             'jquery_on_ready': True,
         },
         'workouts': workouts,
+        'exercise': exercise,
     }
 
     return data
@@ -82,7 +100,12 @@ class Home(View):
 
     def get(self, request, *args, **kwargs):
 
-        data = return_chart_data(request, exercise='SQ')
+        if self.kwargs.get('exercise', None):
+            exercise = self.kwargs['exercise']
+        else:
+            exercise = 'PL'
+
+        data = return_chart_data(request, exercise=exercise)
 
         # recent workouts included in return_chart_data
         return render(request, self.template_name, data)
@@ -103,19 +126,19 @@ class Register(
     authenticated_redirect_url = reverse_lazy(u"home")
     form_class = RegistrationForm
     form_valid_message = 'Thanks for signing up, go ahead and login'
-    success_url = reverse_lazy('home')
+    success_url = reverse_lazy('login')
     model = User
     template_name = "accounts/signup.html"
 
 
 class Login(
     views.AnonymousRequiredMixin,
-    views.FormValidMessageMixin,
+    # views.FormValidMessageMixin,
     FormView
 ):
     authenticated_redirect_url = reverse_lazy(u"home")
     form_class = LoginForm
-    form_valid_message = "Logged in!"
+    # sform_valid_message = "Logged in!"
     success_url = reverse_lazy('home')
     template_name = 'accounts/login.html'
 

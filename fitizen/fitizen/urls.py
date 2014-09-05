@@ -9,6 +9,7 @@ admin.autodiscover()
 urlpatterns = patterns(
     '',
     url(r'^$', Home.as_view(), name='home'),
+    url(r'^home/(?P<exercise>\w+)$', Home.as_view(), name='home'),
     url(r'^contact', Contact.as_view(), name='contact'),
     url(r'^accounts/register/$', Register.as_view(), name='register'),
     url(r'^accounts/login/$', Login.as_view(), name='login'),

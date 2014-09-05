@@ -47,7 +47,7 @@ class CreateWorkout(
             workout.save()
             self.set_exercises(workout)
             self.messages.success("New workout created!")
-            return redirect('home')
+            return redirect('/' + request.user.username + '/workout/' + str(workout.id))
 
 
 class WorkoutView(
