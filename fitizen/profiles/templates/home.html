@@ -1,24 +1,56 @@
 {% extends "base.html" %}
-
+{% load nvd3_tags %}
 {% block title %} Welcome, {% if user.is_authenticated %} {{ user.username }}
+    <a href="{% url 'create_workout' %}" class="btn btn-default btn-lg" role="button">
+    <span class="glyphicon glyphicon-plus"></span>
+    Go workout</a>
 {% else %} Fitizen
 {% endif %}
 {% endblock %}
 {% block content %}
 
 {% if user.is_authenticated %}
-<p class="lead"><h3>Your recent workouts</h3></p>
-<p class="lead">
-    {% for workout in workouts %}
-    <a href="{{ user.username }}/workout/{{ workout.id }}">{{ workout.created|date:"l N jS, P" }}</a>
-    {% endfor %}
-</p>
 
-<br />
+<div class="row">
+  <div class="col-md-6">
 
-<a href="{% url 'create_workout' %}" class="btn btn-default btn-lg" role="button">
-    <span class="glyphicon glyphicon-plus"></span>
-    Add new work out</a>
+  <ul class="list-inline">
+    <li><h3>{{exercise}}</h3></li>
+    <li>
+      <div class="btn-group">
+        <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+          Pick exercise<span class="caret"></span>
+        </button>
+        <ul class="dropdown-menu" role="menu">
+          <li><a href="/home/PL">Pullups</a></li>
+          <li><a href="/home/D">Dips</a></li>
+          <li><a href="/home/SQ">Squats</a></li>
+          <li><a href="/home/LS">L-sits</a></li>
+          <li><a href="/home/PU">Pushups</a></li>
+          <li><a href="/home/RW">Rows</a></li>
+        </ul>
+      </div>
+    </li>
+  </ul>
+
+    {% include_container chartcontainer 300 450 %}
+
+</div>
+
+  <div class="col-md-6">
+      <p class="lead"><h3>Your recent workouts</h3></p>
+      <p class="lead">
+          <ul class="list-unstyled">
+              {% for workout in workouts %}
+                  <li><a href="/{{ user.username }}/workout/{{ workout.id }}">{{ workout.created|date:"l N jS, P" }}</a></li>
+              {% endfor %}
+          </ul>
+      </p>
+  </div>
+
+
+</div>
+
 
 {% else %}
 

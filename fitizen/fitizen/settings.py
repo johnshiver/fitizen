@@ -10,7 +10,6 @@ https://docs.djangoproject.com/en/1.6/ref/settings/
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 import os
-from configurations import Configuration
 from unipath import Path
 
 # Normally should not import ANYTHING from Django directly
@@ -54,6 +53,8 @@ INSTALLED_APPS = (
     'body_weight_workout',
     'profiles',
     'crispy_forms',
+    'django_nvd3',
+    'djangobower',
 )
 
 MIDDLEWARE_CLASSES = (
@@ -112,10 +113,33 @@ USE_TZ = True
 MEDIA_ROOT = BASE_DIR.child("media")
 
 STATICFILES_DIRS = (
-    BASE_DIR.child("static"),
+    '/Users/johnshiver/projects/fitizen/fitizen/static/',
 )
 
 # STATIC_ROOT = '../static/'
 STATIC_URL = '/static/'
 
+# List of finder classes that know how to find static files in
+# various locations.
+STATICFILES_FINDERS = (
+    'django.contrib.staticfiles.finders.FileSystemFinder',
+    'django.contrib.staticfiles.finders.AppDirectoriesFinder',
+    # 'django.contrib.staticfiles.finders.DefaultStorageFinder',
+    'djangobower.finders.BowerFinder',
+)
+
+
 CRISPY_TEMPLATE_PACK = 'bootstrap3'
+
+# Django-bower
+# ------------
+
+# Specifie path to components root (you need to use absolute path)
+BOWER_COMPONENTS_ROOT = os.path.join(BASE_DIR, 'components')
+
+BOWER_PATH = '/usr/local/bin/bower'
+
+BOWER_INSTALLED_APPS = (
+    'd3#3.3.6',
+    'nvd3#1.1.12-beta',
+)
