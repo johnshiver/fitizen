@@ -6,3 +6,5 @@ django-crispy-forms==1.4.0
 gunicorn==19.1.1
 psycopg2==2.5.3
 wsgiref==0.1.2
+django-nvd3==0.7.4
+django-bower==5.0.1
