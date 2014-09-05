@@ -137,7 +137,10 @@ CRISPY_TEMPLATE_PACK = 'bootstrap3'
 # Specifie path to components root (you need to use absolute path)
 BOWER_COMPONENTS_ROOT = os.path.join(BASE_DIR, 'components')
 
-BOWER_PATH = '/usr/local/bin/bower'
+# use for dev
+# BOWER_PATH = '/usr/local/bin/bower'
+# user for prod
+BOWER_PATH = '/usr/bin/bower'
 
 BOWER_INSTALLED_APPS = (
     'd3#3.3.6',
