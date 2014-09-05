@@ -7,11 +7,20 @@
 {% block content %}
 
 {% if user.is_authenticated %}
+
+<body>
+    {% include_container chartcontainer 400 600 %}
+
+</body>
+
+
 <p class="lead"><h3>Your recent workouts</h3></p>
 <p class="lead">
-    {% for workout in workouts %}
-    <a href="{{ user.username }}/workout/{{ workout.id }}">{{ workout.created|date:"l N jS, P" }}</a>
-    {% endfor %}
+    <ul class="list-unstyled">
+        {% for workout in workouts %}
+            <li><a href="{{ user.username }}/workout/{{ workout.id }}">{{ workout.created|date:"l N jS, P" }}</a></li>
+        {% endfor %}
+    </ul>
 </p>
 
 <br />
