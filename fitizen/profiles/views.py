@@ -16,7 +16,8 @@ from body_weight_workout.models import BodyWeightWorkout, WeightExercise
 from braces import views
 
 
-def get_data(request):
+def get_data(request, exercise='PL'):
+    exercise = exercise
     xdata = []
     ydata = []
     ydata2 = []
@@ -25,7 +26,7 @@ def get_data(request):
     xdata = range(len(workouts))
     #get pullups for each workout
     for workout in workouts:
-        pullups = list(WeightExercise.objects.filter(workout=workout.id, exercise='PL'))
+        pullups = list(WeightExercise.objects.filter(workout=workout.id, exercise=exercise))
         print pullups[0].set1
         ydata.append(pullups[0].set1)
         ydata2.append(pullups[0].set2)
@@ -33,8 +34,9 @@ def get_data(request):
     return xdata, ydata, ydata2, ydata3
 
 
-def return_chart_data(request):
-    xdata, ydata, ydata2, ydata3 = get_data(request)
+def return_chart_data(request, exercise='PL'):
+    exercise = exercise
+    xdata, ydata, ydata2, ydata3 = get_data(request, exercise=exercise)
 
     extra_serie = {"tooltip": {"y_start": "There are ", "y_end": " reps"}}
 
@@ -48,6 +50,8 @@ def return_chart_data(request):
     charttype = "multiBarChart"
     chartcontainer = 'multibarchart_container'  # container name
 
+    workouts = BodyWeightWorkout.objects.filter(user=request.user.id)[:6]
+
     data = {
         'charttype': charttype,
         'chartdata': chartdata,
@@ -57,7 +61,8 @@ def return_chart_data(request):
             'x_axis_format': '',
             'tag_script_js': True,
             'jquery_on_ready': True,
-        }
+        },
+        'workouts': workouts,
     }
 
     return data
@@ -68,49 +73,7 @@ def demo_discretebarchart(request):
     multibarchart page
     """
 
-
-    # nb_element = 100
-    # start_time = int(time.mktime(datetime.datetime(2012, 6, 1).timetuple()) * 1000)
-    # xdata = range(nb_element)
-    # xdata = map(lambda x: start_time + x * 1000000000, xdata)
-    # ydata = [i + random.randint(1, 10) for i in range(nb_element)]
-    # ydata2 = map(lambda x: x * 2, ydata)
-
-    # tooltip_date = "%d %b %Y %H:%M:%S %p"
-    # extra_serie = {"tooltip": {"y_start": "There are ", "y_end": " calls"},
-    #                "date_format": tooltip_date}
-
-    # date_chartdata = {
-    #     'x': xdata,
-    #     'name1': 'series 1', 'y1': ydata, 'extra1': extra_serie,
-    #     'name2': 'series 2', 'y2': ydata2, 'extra2': extra_serie,
-    # }
-
-    # charttype = "multiBarChart"
-    # chartcontainer = 'multibarchart_container'  # container name
-    # chartcontainer_with_date = 'date_multibarchart_container'  # container name
-    # data = {
-    #     'charttype': charttype,
-    #     'chartdata': chartdata,
-    #     'chartcontainer': chartcontainer,
-    #     'extra': {
-    #         'x_is_date': False,
-    #         'x_axis_format': '',
-    #         'tag_script_js': True,
-    #         'jquery_on_ready': True,
-    #     },
-    #     'chartdata_with_date': date_chartdata,
-    #     'chartcontainer_with_date': chartcontainer_with_date,
-    #     'extra_with_date': {
-    #         'name': chartcontainer_with_date,
-    #         'x_is_date': True,
-    #         'x_axis_format': '%d %b %Y',
-    #         'tag_script_js': True,
-    #         'jquery_on_ready': True,
-    #     },
-    # }
-
-    data = return_chart_data(request)
+    data = return_chart_data(request, exercise='SQ')
     return render_to_response('test_chart.html', data)
 
 
@@ -119,8 +82,10 @@ class Home(View):
 
     def get(self, request, *args, **kwargs):
 
-        workouts = BodyWeightWorkout.objects.filter(user=request.user.id)[:6]
-        return render(request, self.template_name, {'workouts': workouts})
+        data = return_chart_data(request, exercise='SQ')
+
+        # recent workouts included in return_chart_data
+        return render(request, self.template_name, data)
 
 
 class Contact(View):
