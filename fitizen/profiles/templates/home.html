@@ -1,5 +1,5 @@
 {% extends "base.html" %}
-
+{% load nvd3_tags %}
 {% block title %} Welcome, {% if user.is_authenticated %} {{ user.username }}
 {% else %} Fitizen
 {% endif %}
@@ -7,11 +7,6 @@
 {% block content %}
 
 {% if user.is_authenticated %}
-
-<body>
-    {% include_container chartcontainer 400 600 %}
-
-</body>
 
 
 <p class="lead"><h3>Your recent workouts</h3></p>

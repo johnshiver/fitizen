@@ -35,19 +35,19 @@ class CreateWorkout(
     def get(self, request, *args, **kwargs):
         now = timezone.now()
         recent_workout = BodyWeightWorkout.objects.filter(user=request.user.id).datetimes('created', 'day', order='DESC')[:1]
-        # if len(recent_workout) > 0:
-        #     recent_workout = list(recent_workout)
-        #     difference = (now - recent_workout[0])
-        #     if difference.days == 0:
-        #         self.messages.success("You already worked out today, take a break!")
-        #         return redirect('home')
-        # else:
-        user = request.user
-        workout = BodyWeightWorkout(user=user)
-        workout.save()
-        self.set_exercises(workout)
-        self.messages.success("New workout created!")
-        return redirect('home')
+        if len(recent_workout) > 0:
+            recent_workout = list(recent_workout)
+            difference = (now - recent_workout[0])
+            if difference.days == 0:
+                self.messages.success("You already worked out today, take a break!")
+                return redirect('home')
+        else:
+            user = request.user
+            workout = BodyWeightWorkout(user=user)
+            workout.save()
+            self.set_exercises(workout)
+            self.messages.success("New workout created!")
+            return redirect('home')
 
 
 class WorkoutView(
