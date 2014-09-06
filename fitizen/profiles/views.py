@@ -65,7 +65,7 @@ def return_chart_data(request, exercise='PL'):
     charttype = "multiBarChart"
     chartcontainer = 'multibarchart_container'  # container name
 
-    workouts = BodyWeightWorkout.objects.filter(user=request.user.id)[:6]
+    workouts = BodyWeightWorkout.objects.filter(user=request.user.id)[:6:-1]
 
     exercise = fix_exercise(exercise)
 

@@ -1,10 +1,12 @@
 {% extends "base.html" %}
 {% load nvd3_tags %}
-{% block title %} Welcome, {% if user.is_authenticated %} {{ user.username }}
+
+{% block title %}<div class="jumbotron"> Welcome back, {% if user.is_authenticated %} {{ user.username }}
     <a href="{% url 'create_workout' %}" class="btn btn-default btn-lg" role="button">
     <span class="glyphicon glyphicon-plus"></span>
     Go workout</a>
 {% else %} Fitizen
+</div>
 {% endif %}
 {% endblock %}
 {% block content %}
@@ -12,10 +14,26 @@
 {% if user.is_authenticated %}
 
 <div class="row">
+
+  <div class="col-md-6">
+      <p class="lead">Your recent workouts</p>
+      <table class="table table-hover">
+              {% for workout in workouts %}
+                <tr>
+                  <td><a href="/{{ user.username }}/workout/{{ workout.id }}">{{ workout.created|date:"l N jS, P" }}</a></td>
+                </tr>
+              {% endfor %}
+      </table>
+  </div>
+
+
   <div class="col-md-6">
 
-  <ul class="list-inline">
-    <li><h3>{{exercise}}</h3></li>
+    {% include_container chartcontainer 300 450 %}
+
+
+    <ul class="list-inline">
+    <li>{{exercise}}</li>
     <li>
       <div class="btn-group">
         <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
@@ -33,24 +51,9 @@
     </li>
   </ul>
 
-    {% include_container chartcontainer 300 450 %}
-
 </div>
 
-  <div class="col-md-6">
-      <p class="lead"><h3>Your recent workouts</h3></p>
-      <p class="lead">
-          <ul class="list-unstyled">
-              {% for workout in workouts %}
-                  <li><a href="/{{ user.username }}/workout/{{ workout.id }}">{{ workout.created|date:"l N jS, P" }}</a></li>
-              {% endfor %}
-          </ul>
-      </p>
-  </div>
-
-
 </div>
-
 
 {% else %}
 
