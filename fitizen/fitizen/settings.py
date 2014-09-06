@@ -116,6 +116,7 @@ MEDIA_ROOT = BASE_DIR.child("media")
 #     '/Users/johnshiver/projects/fitizen/fitizen/static/',
 # )
 
+# user for dev
 STATIC_ROOT = '../static/'
 STATIC_URL = '/static/'
 
