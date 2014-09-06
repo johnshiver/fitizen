@@ -47,7 +47,7 @@ class CreateWorkout(
             recent_workout = list(recent_workout)
             difference = (now - recent_workout[0])
             if difference.days == 0:
-                self.messages.success("You already worked out today, take a break!")
+                self.messages.success("You already worked out today, chill out!")
                 return redirect('home')
             else:
                 self.create_workout(request)
