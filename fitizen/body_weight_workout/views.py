@@ -32,14 +32,6 @@ class CreateWorkout(
         pushup.save()
         row.save()
 
-    def create_workout(self, request):
-        user = request.user
-        workout = BodyWeightWorkout(user=user)
-        workout.save()
-        self.set_exercises(workout)
-        self.messages.success("New workout created!")
-        return redirect('/' + request.user.username + '/workout/' + str(workout.id))
-
     def get(self, request, *args, **kwargs):
         now = timezone.now()
         recent_workout = BodyWeightWorkout.objects.filter(user=request.user.id).datetimes('created', 'day', order='DESC')[:1]
@@ -48,12 +40,22 @@ class CreateWorkout(
             difference = (now - recent_workout[0])
             if difference.days == 0:
                 self.messages.success("You already worked out today, chill out!")
+                print "got to difference 0"
                 return redirect('home')
             else:
-                self.create_workout(request)
+                user = request.user
+                workout = BodyWeightWorkout(user=user)
+                workout.save()
+                self.set_exercises(workout)
+                self.messages.success("New workout created!")
+                return HttpResponseRedirect('/' + request.user.username + '/workout/' + str(workout.id))
         else:
-            self.create_workout(request)
-
+            user = request.user
+            workout = BodyWeightWorkout(user=user)
+            workout.save()
+            self.set_exercises(workout)
+            self.messages.success("New workout created!")
+            return HttpResponseRedirect('/' + request.user.username + '/workout/' + str(workout.id))
 
 class WorkoutView(
     views.LoginRequiredMixin,
