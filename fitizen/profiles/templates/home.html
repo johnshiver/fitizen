@@ -6,6 +6,12 @@
     <span class="glyphicon glyphicon-plus"></span>
     Go workout</a>
 {% else %} Fitizen
+<a href="{% url 'login' %}" class="btn btn-default btn-lg" role="button">
+    <span class="glyphicon glyphicon-plus"></span>
+    Login</a>
+<a href="{% url 'register' %}" class="btn btn-default btn-lg" role="button">
+    <span class="glyphicon glyphicon-plus"></span>
+    Register</a>
 </div>
 {% endif %}
 {% endblock %}
@@ -26,6 +32,14 @@
       </table>
   </div>
 
+{% else %}
+<div class="row">
+  <div class="col-md-6">
+    <p class="lead"> Fitizen is a site that compliments /r/bodyweightfitness's beginner workout, <a href="http://www.reddit.com/r/bodyweightfitness/wiki/kb/recommended_routine">see here.</a></p>
+  </div>
+
+
+{% endif %}
 
   <div class="col-md-6">
 
@@ -55,11 +69,6 @@
 
 </div>
 
-{% else %}
 
-<p class="lead"> Fitizen is a site that compliments /r/bodyweightfitness's beginner workout, <a href="http://www.reddit.com/r/bodyweightfitness/wiki/kb/recommended_routine">see here.</a></p>
-
-
-{% endif %}
 
 {% endblock %}
