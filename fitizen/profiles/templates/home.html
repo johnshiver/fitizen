@@ -6,10 +6,10 @@
     <span class="glyphicon glyphicon-plus"></span>
     Go workout</a>
 {% else %} Fitizen
-<a href="{% url 'login' %}" class="btn btn-default btn-lg" role="button">
+<a href="{% url 'login' %}" class="btn btn-default btn-lg" role="button" style="margin-left:10px">
     <span class="glyphicon glyphicon-plus"></span>
     Login</a>
-<a href="{% url 'register' %}" class="btn btn-default btn-lg" role="button">
+<a href="{% url 'register' %}" class="btn btn-default btn-lg" role="button" style="margin-left:10px">
     <span class="glyphicon glyphicon-plus"></span>
     Register</a>
 </div>
@@ -35,19 +35,21 @@
 {% else %}
 <div class="row">
   <div class="col-md-6">
-    <p class="lead"> Fitizen is a site that compliments /r/bodyweightfitness's beginner workout, <a href="http://www.reddit.com/r/bodyweightfitness/wiki/kb/recommended_routine">see here.</a></p>
+    <p class="lead"> Fitizen is a site that compliments /r/bodyweightfitness's
+    <a href="http://www.reddit.com/r/bodyweightfitness/wiki/kb/recommended_routine">beginner workout</a>
+   by visualizing user progress with stunning, informative graphics.
+  <br />
+  <br />
+   Accounts are free, sign up today!</p>
   </div>
 
 
 {% endif %}
 
   <div class="col-md-6">
-
+  <h3 style="text-align:left; margin-left:25px; margin-top:-10px;">{{exercise}}</h3>
     {% include_container chartcontainer 300 450 %}
-
-
     <ul class="list-inline">
-    <li>{{exercise}}</li>
     <li>
       <div class="btn-group">
         <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
