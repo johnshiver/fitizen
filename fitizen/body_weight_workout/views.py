@@ -57,6 +57,7 @@ class CreateWorkout(
         self.messages.success("New workout created!")
         return HttpResponseRedirect('/' + request.user.username + '/workout/' + str(workout.id))
 
+
 class WorkoutView(
     views.LoginRequiredMixin,
     views.MessageMixin,

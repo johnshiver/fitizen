@@ -35,7 +35,12 @@ def get_data(request, exercise='PL'):
     ydata = [0 for x in range(5)]
     ydata2 = [0 for x in range(5)]
     ydata3 = [0 for x in range(5)]
-    workouts = list(BodyWeightWorkout.objects.filter(user=request.user.id)[:5])
+    if request.user.is_authenticated():
+        workouts = list(BodyWeightWorkout.objects.filter(user=request.user.id).order_by('-modified')[:5])
+    else:
+        print 'where we are supposed to be'
+        workouts = BodyWeightWorkout.objects.filter(user_id=23)
+
     # change this to dates at some point
     xdata = range(1, 6)
     # get reps for each workout
@@ -65,7 +70,9 @@ def return_chart_data(request, exercise='PL'):
     charttype = "multiBarChart"
     chartcontainer = 'multibarchart_container'  # container name
 
-    workouts = BodyWeightWorkout.objects.filter(user=request.user.id)[:6:-1]
+    workouts = None
+    if request.user.is_authenticated():
+        workouts = BodyWeightWorkout.objects.filter(user=request.user.id).order_by('-modified')[:5]
 
     exercise = fix_exercise(exercise)
 
@@ -104,9 +111,7 @@ class Home(View):
             exercise = self.kwargs['exercise']
         else:
             exercise = 'PL'
-
         data = return_chart_data(request, exercise=exercise)
-
         # recent workouts included in return_chart_data
         return render(request, self.template_name, data)
 
