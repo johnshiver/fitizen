@@ -40,7 +40,7 @@ def get_data(request, exercise='PL'):
     else:
         # update user_id depending on prod / dev
         # need to change this to default values, will be easier
-        workouts = list(BodyWeightWorkout.objects.filter(user_id=8)[:5])
+        workouts = list(BodyWeightWorkout.objects.filter(user_id=8).order_by('-modified')[:5])
     # change this to dates at some point
     xdata = range(1, 6)
     # get reps for each workout
