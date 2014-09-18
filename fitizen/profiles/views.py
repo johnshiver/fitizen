@@ -38,8 +38,9 @@ def get_data(request, exercise='PL'):
     if request.user.is_authenticated():
         workouts = list(BodyWeightWorkout.objects.filter(user=request.user.id).order_by('-modified')[:5])
     else:
-        print 'where we are supposed to be'
-        workouts = BodyWeightWorkout.objects.filter(user_id=23)
+        # update user_id depending on prod / dev
+        # need to change this to default values, will be easier
+        workouts = BodyWeightWorkout.objects.filter(user_id=8)
 
     # change this to dates at some point
     xdata = range(1, 6)
