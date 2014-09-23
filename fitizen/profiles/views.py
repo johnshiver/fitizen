@@ -36,13 +36,14 @@ def get_data(request, exercise='PL'):
     ydata2 = [0 for x in range(5)]
     ydata3 = [0 for x in range(5)]
     if request.user.is_authenticated():
-        workouts = list(BodyWeightWorkout.objects.filter(user=request.user.id).order_by('-modified')[:5])
+        workouts = list(BodyWeightWorkout.objects.filter(user=request.user.id).order_by('-created')[:5])
     else:
         # update user_id depending on prod / dev
         # need to change this to default values, will be easier
-        workouts = list(BodyWeightWorkout.objects.filter(user_id=8).order_by('-modified')[:5])
+        workouts = list(BodyWeightWorkout.objects.filter(user_id=23).order_by('-created')[:5])
     # change this to dates at some point
-    xdata = range(1, 6)
+    # no idea why this works
+    xdata = [int(time.mktime(workout.created.timetuple()))*1000 for workout in workouts]
     # get reps for each workout
     i = 0
     for workout in workouts:
@@ -81,8 +82,8 @@ def return_chart_data(request, exercise='PL'):
         'chartdata': chartdata,
         'chartcontainer': chartcontainer,
         'extra': {
-            'x_is_date': False,
-            'x_axis_format': '',
+            'x_is_date': True,
+            'x_axis_format': '%d %b %Y',
             'tag_script_js': True,
             'jquery_on_ready': True,
         },
