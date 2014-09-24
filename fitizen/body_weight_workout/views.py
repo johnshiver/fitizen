@@ -123,6 +123,14 @@ class UpdateWorkout(
         }
         return EXERCISE_CHOICES[group_number]
 
+    def set_exercise(self, group_number):
+        exercises = {
+            1: ['PL', 'D'],
+            2: ['SQ', 'LS'],
+            3: ['PU', 'RW']
+        }
+        return exercises[group_number]
+
     def get(self, request, *args, **kwargs):
         username = self.kwargs['username']
         if request.user.username == username:
@@ -132,9 +140,12 @@ class UpdateWorkout(
             group = self.kwargs['group']
             choices = self.set_choices(int(group))
             template = templates[int(group)]
-            form1 = WeightExerciseForm(view_choices=choices[0],
+            exercises = self.set_exercise(int(group))
+            exercise1 = list(WeightExercise.objects.filter(workout_id=workout_id, exercise=exercises[0]))
+            exercise2 = list(WeightExercise.objects.filter(workout_id=workout_id, exercise=exercises[1]))
+            form1 = WeightExerciseForm(view_choices=choices[0], exercise=exercise1,
                                        prefix='ex1')
-            form2 = WeightExerciseForm(view_choices=choices[1],
+            form2 = WeightExerciseForm(view_choices=choices[1], exercise=exercise2,
                                        prefix='ex2')
             return render(request, template, {
                           'form1': form1,
